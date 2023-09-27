@@ -1,23 +1,54 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import "@/app/globals.css";
+// import TaskBar from "./TaskBar.js";
 
-const form = () => {
+const Form = () => {
   //creating variables for storing title and description
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
+  const [tasks, setTasks] = useState([]);
 
   const setHandler = (e)=>{
     //this basically will prevent reloading the page once we click on add task button
-    e.preventDefault()
-    console.log(heading)
-    console.log(description)
+    e.preventDefault();
+    setTasks([...tasks, {heading, description}])
     setHeading("")
     setDescription("")
+    console.log(tasks);
   }
 
+  const deleteHandler = (i)=>{
+    let duplicate = [...tasks];
+    duplicate.splice(i,1)
+    setTasks(duplicate)
+  }
+
+  let task = <h3>No task available</h3>
+  if(tasks.length > 0)
+  task = tasks.map((t,i)=>{
+    return(
+      <div key={i}>
+        <h3 className="text-lg">{t.heading}</h3>
+        <p className="text-sm">{t.description}</p>
+        <button 
+        onClick={()=>{
+          deleteHandler(i);
+        }}
+        className="bg-red-500">Delete</button>
+      </div>
+    )
+  })
+  
   return (
     <>
+    <div id="container">
+      {/* <TaskBar heading={heading} description={description}/> */}
+      <div id="taskslist">
+        <ul>
+          {task}
+        </ul>
+      </div>
       <form className="font-Poppins" onSubmit={setHandler}>
         <input 
         type="text" 
@@ -39,8 +70,10 @@ const form = () => {
 
         <button className="btn">Add Task</button>
       </form>
+      
+      </div>
     </>
   );
 };
 
-export default form;
+export default Form;
