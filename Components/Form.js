@@ -4,7 +4,7 @@ import "@/app/globals.css";
 // import TaskBar from "./TaskBar.js";
 
 const Form = () => {
-  //creating variables for storing title and description
+  //creating variables for storing title  and description
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
   const [tasks, setTasks] = useState([]);

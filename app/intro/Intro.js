@@ -5,7 +5,6 @@ const Intro = () => {
   return (
     <>
       <div id="landing_page">
-        <img id="logo" src="/images/logo.png" alt="Not Found" />
         <img id="bg4" src="/images/bg4.png" alt="" />
         <img id="bg5" src="/images/bg5.png" alt="" />
         <div id="content">
@@ -23,6 +22,12 @@ const Intro = () => {
         <img id="bg2" src="/images/bg2.png" alt="" />
         <img id="bg3" src="/images/bg3.png" alt="" />
         <img id="bg6" src="/images/bg6.png" alt="" />
+
+        <div className="btns">
+          <button>Login Here</button>
+          <button>Explore Here</button>
+          <button>Sign Up Here</button>
+        </div>
       </div>
     </>
   );
