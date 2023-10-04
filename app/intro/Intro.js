@@ -1,10 +1,12 @@
 import React from "react";
 import "./Intro.css";
+import Link from "next/link";
 
 const Intro = () => {
   return (
     <>
       <div id="landing_page">
+        <img id="logo" src="/images/logo.png" alt="Not Found" />
         <img id="bg4" src="/images/bg4.png" alt="" />
         <img id="bg5" src="/images/bg5.png" alt="" />
         <div id="content">
@@ -24,9 +26,9 @@ const Intro = () => {
         <img id="bg6" src="/images/bg6.png" alt="" />
 
         <div className="btns">
-          <button>Login Here</button>
-          <button>Explore Here</button>
-          <button>Sign Up Here</button>
+          <Link href="/login" className="btn">Login Here</Link>
+          <button className="btn">Explore Here</button>
+          <Link href="/signup" className="btn">Sign Up Here</Link>
         </div>
       </div>
     </>

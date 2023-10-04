@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,700&family=Rammetto+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
 
 #landing_page{
     position: relative;
     height: 100vh;
     width: 100%;
+    background: linear-gradient(to right, #4b134f, #ba3838);
+
 }
 
 #logo{
@@ -86,6 +89,36 @@
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15vmax;
+    flex-wrap: nowrap;
+}
+
+.btn{
+    border-radius: 2vmax;
+    margin: 2vmax;
+    position: relative;
+    z-index: 99;
+    background: linear-gradient(to right, #41295a, #2f0743);
+    width: 15.5vmax;
+    height: 4.9vmax;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: white;
+    font-size: 1.55vmax;
+    transition: 0.5s all ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn:hover{
+    scale: 0.8;
 }
 
 @media (max-width:1280px){
