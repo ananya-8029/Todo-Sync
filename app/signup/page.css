@@ -139,4 +139,7 @@
     .logo {
         margin: 2.5vmax;
     }
+    .inputfield input{
+        padding-bottom: 2.2vmax;
+    }
 }
