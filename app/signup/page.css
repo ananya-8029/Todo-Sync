@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montaga&family=Poppins:wght@200;400;600&display=swap');
+
 .logo{    
     width: 11vmax;
-    margin: 2.5vmax;
+    margin: 3.5vmax;
     position: absolute;
     z-index: 99;
 }
 
 .signuppage{
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,4 +111,32 @@
 
 .signupform p span:hover{
     text-decoration: underline;
+}
+
+@media (max-width:1024px){
+    ::placeholder{
+        font-size: 1.1vmax;
+    }
+}
+
+@media (max-width:920px){
+    .signupform form {
+        width: 56vmax;
+    }
+}
+
+@media (max-width:420px){
+    .signupform form {
+        width: 36vmax;
+    }
+    .signupform p {
+        font-size: 1.5vmax;
+    }
+    .signupbtn {
+        font-size: 1.3vmax;
+        width: 13vmax;
+    }
+    .logo {
+        margin: 2.5vmax;
+    }
 }

@@ -132,7 +132,10 @@
     }
 
     .loginForm h1{
-        color: #2b2a2a;
+        background: linear-gradient(90deg, #6A714F 30.09%, #FFF 47.02%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
         width: 31vmax;
         position: relative;
         left: 13vmax;
