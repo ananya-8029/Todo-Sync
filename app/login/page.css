@@ -102,6 +102,9 @@
     scale: 1.2;
 }
 
+::placeholder{
+    font-weight: 200;
+}
 
 
 @media (max-width:1280px){}
