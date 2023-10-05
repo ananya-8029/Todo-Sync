@@ -1,16 +1,36 @@
 "use client";
 import React, { useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 import "./page.css";
 
 const page = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cpassword, setCpassword] = useState("");
 
-  const onSubmit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:5000/signup", {
+          name,
+          email,
+          password,
+        })
+        .then((res) => {
+          if (res.data == "exist") {
+            alert("Try to login since the user already exist");
+          } else if (res.data == "does not exist") {
+            alert("User created");
+          }
+        })
+        .catch((e) => {
+          alert("Please enter valid data");
+          console.log(e);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -43,17 +63,10 @@ const page = () => {
           }}
           placeholder="Create a strong password"
         />
-        <label>Confirm Password</label>
-        <input
-          type="password"
-          value={cpassword}
-          onChange={(e) => {
-            setCpassword(e.target.value);
-          }}
-          placeholder="Confirm the password"
-        />
 
-        <button type="submit">Create my Account</button>
+        <button className="bg-slate-600" onClick={submit} type="submit">
+          Create my Account
+        </button>
       </form>
     </>
   );
