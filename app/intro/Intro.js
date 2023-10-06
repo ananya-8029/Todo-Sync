@@ -1,10 +1,12 @@
 import React from "react";
 import "./Intro.css";
 import Link from "next/link";
+import Particles from '@/Components/Tparticles'
 
 const Intro = () => {
   return (
     <>
+    <Particles/>
       <div id="landing_page">
         <img id="logo" src="/images/logo.png" alt="Not Found" />
         <img id="bg4" src="/images/bg4.png" alt="" />

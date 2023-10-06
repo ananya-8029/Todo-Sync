@@ -2,9 +2,11 @@ import React from 'react'
 import Form from '@/Components/Form'
 import Intro from "./intro/Intro.js";
 
+
 const page = () => {
   return (
     <>
+    
     <Intro/>
     {/* <div className="main">
       <h1 className="text-4xl text-center font-bold font-DancingScript mb-1.5 p-6 shadow-xl text-white">Start your day with some exciting activities </h1>
