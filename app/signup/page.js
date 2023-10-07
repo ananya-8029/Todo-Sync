@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./page.css";
 import Link from 'next/link'
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const router=useRouter();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -21,9 +24,10 @@ const page = () => {
         })
         .then((res) => {
           if (res.data == "exist") {
-            alert("Try to login since the user already exist");
+            alert("User already exists");
           } else if (res.data == "does not exist") {
             alert("User created");
+            router.push("/login");
           }
         })
         .catch((e) => {

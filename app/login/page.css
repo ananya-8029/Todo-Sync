@@ -53,6 +53,16 @@
     text-decoration: underline;
 }
 
+.loginForm form span{
+    cursor: pointer;
+    font-size: 1vmax;
+    color: blueviolet;
+}
+
+.loginForm form span:hover{
+    text-decoration: underline;
+}
+
 .emailinput{
     gap: 3vmax;
 }
@@ -94,7 +104,6 @@
     background-color: rgb(5 60 255);
     color: white;
     border-radius: 0.7vmax;
-    margin: 0.8vmax;
     transition: all 0.5s ease;
 }
 

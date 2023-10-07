@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./page.css";
 import Link from 'next/link'
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const router=useRouter();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -20,6 +23,7 @@ const page = () => {
         .then((res) => {
           if (res.data == "exist") {
             alert("User Login succesfully");
+            router.push("/home")
           } else if (res.data == "does not exist") {
             alert("User does not exist");
           }
@@ -63,7 +67,7 @@ const page = () => {
                 placeholder="Key your password"
               />
             </div>
-
+            <span><Link href="/login/forgotPassword">Forgot Password</Link></span>
             <button className="loginbtn" onClick={submit}>Proceed</button>
             <p>New User? <Link href="/signup"><span>Create an Account.</span></Link></p>
           </form>
