@@ -21,6 +21,16 @@
     margin-top: 5vmax;
 }
 
+#content h2::selection{
+    color: #34430e;
+    background-color: white;
+}
+
+#content p::selection{
+    color: white;
+    background-color: black;
+}
+
 #content h2{
     -webkit-text-stroke: 0.4vmax white;
     text-shadow: -4px -3px 3px rgba(0, 0, 0, 0.25);

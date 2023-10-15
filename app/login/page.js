@@ -15,23 +15,21 @@ const page = () => {
     e.preventDefault();
 
     try {
-      await axios
-        .post("http://localhost:5000/login", {
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
           email,
           password,
-        })
-        .then((res) => {
-          if (res.data == "exist") {
-            alert("User Login succesfully");
-            router.push("/home")
-          } else if (res.data == "does not exist") {
-            alert("User does not exist");
+        },{
+          headers: {
+            'Content-Type': 'application/json',
           }
-        })
-        .catch((e) => {
-          alert("Invalid details");
-          console.log(e);
         });
+
+        if(response.data.error){
+          alert(response.data.error)
+        }
+        else{
+          router.push("/home")
+        }
     } catch (error) {
       console.log(error);
     }

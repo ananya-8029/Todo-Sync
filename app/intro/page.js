@@ -11,7 +11,7 @@ const page = () => {
         
         <div id="content">
           <h2>
-            Your personalised <span>TODO List.</span>
+            Your personalised TODO List.
           </h2>
           <p>
             "Discover the art of achieving more with less stress through our

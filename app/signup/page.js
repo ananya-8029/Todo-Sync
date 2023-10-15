@@ -14,26 +14,24 @@ const page = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-
     try {
-      await axios
-        .post("http://localhost:5000/signup", {
+      const response = await axios.post("http://localhost:5000/api/auth/createuser", {
           name,
           email,
           password,
-        })
-        .then((res) => {
-          if (res.data == "exist") {
-            alert("User already exists");
-          } else if (res.data == "does not exist") {
-            alert("User created");
-            router.push("/login");
+        },{
+          headers: {
+            'Content-Type': 'application/json',
           }
-        })
-        .catch((e) => {
-          alert("Please enter valid data");
-          console.log(e);
         });
+        
+        if(response.data.error){
+          alert(response.data.error)
+        }
+        else{
+          alert("User created successfully");
+          router.push("/login");
+        }
     } catch (error) {
       console.log(error);
     }
