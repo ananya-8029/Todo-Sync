@@ -21,6 +21,7 @@ const page = () => {
         },{
           headers: {
             'Content-Type': 'application/json',
+            'auth-token': `${response.data.authToken}`,
           }
         });
 
