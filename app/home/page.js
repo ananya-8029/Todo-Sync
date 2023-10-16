@@ -1,9 +1,17 @@
 import React from 'react'
+import "./page.css";
 
 const page = () => {
   return (
     <>
-      <h1>This is my Home page</h1>
+      <div className="main">
+        <div className="dark-main">
+          <div className="main-container">
+            <div className="taskbar"></div>
+            <div className="notes-content"></div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
