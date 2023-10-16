@@ -1,17 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
+require("dotenv").config({ path: ".env.local" });
 //Connecting to Users Schema
 User = require("../models/Users");
 const bcrypt = require("bcryptjs");
 
 //json web token
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = process.env.secretkey;
+const secretkey = process.env.JWT_SECRET;
 
 //middleware
 const fetchuser = require("../middleware/fetchuser");
-const checkrecentlogin = require("../middleware/checkrecentlogin")
+const checkrecentlogin = require("../middleware/checkrecentlogin");
 
 const localStorage = require("localStorage");
 
@@ -46,7 +47,7 @@ router.post("/createuser", async (req, res) => {
         },
       };
       //creating and returning a json web token of the user created
-      const authtoken = jwt.sign(data, JWT_SECRET);
+      const authtoken = jwt.sign(data, secretkey);
       res.json({ authtoken });
     }
   } catch (error) {
@@ -57,7 +58,6 @@ router.post("/createuser", async (req, res) => {
 
 //Route2: Authenticate a User using: POST: "api/auth/login". Checking for the right credentials.
 router.post("/login", checkrecentlogin, async (req, res) => {
-  
   const { email, password } = req.body;
   //checking whether the user has logged in couple of minutes ago
   try {
@@ -83,9 +83,8 @@ router.post("/login", checkrecentlogin, async (req, res) => {
     };
 
     //creating and returning a json web token of the user logged in
-    const signinToken = jwt.sign(data, JWT_SECRET, { expiresIn: 300 });
-    res.json({ authToken:signinToken });
-
+    const signinToken = jwt.sign(data, secretkey, { expiresIn: 300 });
+    res.json({ authToken: signinToken });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal Server errr");

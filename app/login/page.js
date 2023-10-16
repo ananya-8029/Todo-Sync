@@ -2,35 +2,41 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./page.css";
-import Link from 'next/link'
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const router=useRouter();
+  const router = useRouter();
 
   const submit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
           email,
           password,
-        },{
+        },
+        {
           headers: {
-            'Content-Type': 'application/json',
-            'auth-token': `${response.data.authToken}`,
-          }
-        });
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-        if(response.data.error){
-          alert(response.data.error)
-        }
-        else{
-          router.push("/home")
-        }
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        const authToken = response.data.authToken;
+
+        // Include the token in the headers for subsequent requests
+        axios.defaults.headers.common["auth-token"] = authToken;
+        router.push("/home");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -66,9 +72,18 @@ const page = () => {
                 placeholder="Key your password"
               />
             </div>
-            <span><Link href="/login/forgotPassword">Forgot Password</Link></span>
-            <button className="loginbtn" onClick={submit}>Proceed</button>
-            <p>New User? <Link href="/signup"><span>Create an Account.</span></Link></p>
+            <span>
+              <Link href="/login/forgotPassword">Forgot Password</Link>
+            </span>
+            <button className="loginbtn" onClick={submit}>
+              Proceed
+            </button>
+            <p>
+              New User?{" "}
+              <Link href="/signup">
+                <span>Create an Account.</span>
+              </Link>
+            </p>
           </form>
         </div>
         <div className="bgImg">

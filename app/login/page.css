@@ -142,9 +142,9 @@
 
     .loginForm h1{
         background: linear-gradient(90deg, #6A714F 30.09%, #FFF 47.02%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         width: 31vmax;
         position: relative;
         left: 13vmax;
@@ -162,6 +162,9 @@
     ::placeholder{
         font-size: 1.8vmax;
     }
+    .inputfield input{
+        font-size: 1.8vmax;
+    }
     .loginbtn{
         font-size: 1.5vmax;
     }
@@ -169,6 +172,9 @@
 
 @media (max-width:600px){
     ::placeholder{
+        font-size: 1.5vmax;
+    }
+    .inputfield input{
         font-size: 1.5vmax;
     }
     .loginbtn{
