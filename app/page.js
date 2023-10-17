@@ -1,5 +1,4 @@
 import React from 'react'
-import Form from '@/Components/Form'
 import Intro from "./intro/page.js";
 
 

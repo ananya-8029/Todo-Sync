@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import "@/app/globals.css";
+import "./Form.css";
 // import TaskBar from "./TaskBar.js";
 
 const Form = () => {
@@ -43,13 +43,12 @@ const Form = () => {
   return (
     <>
     <div id="container">
-      {/* <TaskBar heading={heading} description={description}/> */}
-      <div id="taskslist">
+      {/* <div id="taskslist">
         <ul>
           {task}
         </ul>
-      </div>
-      <form className="font-Poppins" onSubmit={setHandler}>
+      </div> */}
+      <form onSubmit={setHandler}>
         <input 
         type="text" 
         className="heading" 
@@ -57,7 +56,7 @@ const Form = () => {
         onChange={(event)=>{
             setHeading(event.target.value)
         }}
-        placeholder="Heading" />
+        placeholder="Task" />
 
         <input 
         type="text" 
@@ -66,9 +65,9 @@ const Form = () => {
         onChange={(event)=>{
             setDescription(event.target.value)
         }}
-        placeholder="Description" />
+        placeholder="Task Description" />
 
-        <button className="btn">Add Task</button>
+        <button className="btn">+ ADD TASK</button>
       </form>
       
       </div>
