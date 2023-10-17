@@ -1,18 +1,33 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import "./page.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const router = useRouter();
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    const expirationTime = localStorage.getItem("authTokenExpiration");
 
-  const submit = async (e) => {
-    e.preventDefault();
+    if(!authToken){
+      handleSubmit();
+    }
+    else{
+      if (new Date().getTime() > parseInt(expirationTime, 10)){
+        handleSubmit();
+      }
+      else{
+      router.push("/home");
+      }
+    }
+  }, [router]);
+
+  const handleSubmit = async () => {
 
     try {
       const response = await axios.post(
@@ -32,6 +47,11 @@ const page = () => {
         alert(response.data.error);
       } else {
         const authToken = response.data.authToken;
+        // Set the expiration time (e.g., 1 hour from now)
+        const expirationTime = new Date().getTime() + 3600000; // 1 hour in milliseconds
+
+        localStorage.setItem("authToken", authToken);
+        localStorage.setItem("authTokenExpiration", expirationTime);
 
         // Include the token in the headers for subsequent requests
         axios.defaults.headers.common["auth-token"] = authToken;
@@ -40,7 +60,13 @@ const page = () => {
     } catch (error) {
       console.log(error);
     }
+
   };
+
+  const submit = (e)=>{
+    e.preventDefault();
+    handleSubmit();
+  }
 
   return (
     <>

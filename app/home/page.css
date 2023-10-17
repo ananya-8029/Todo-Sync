@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montaga&family=Poppins:wght@200;400;600&display=swap');
+.logo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 13vmax;
+    padding: 2vmax 1vmax;
+}
 .main{
     background-image: url("/images/homebg1.jpg");
     height: 100vh;
@@ -22,17 +29,30 @@
 .main-container{
     height: 95vh;
     width: 95%;
-    background-color: rgba(255, 255, 255, 0.786);
+    background-color: rgb(255, 255, 255);
     border-radius: 0.8vmax;
     display: flex;
 }
 
 .taskbar{
-    background-color: rgb(144, 187, 129);
+    display: flex;
+    background-color: #BFDCB5;
     height: 100%;
     width: 25%;
     border-top-left-radius: 0.8vmax;
     border-bottom-left-radius: 0.8vmax;
+    justify-content: flex-start;
+}
+
+.taskbar .profile-container{
+    margin: 0 3vmax;
+    margin-top: 4.5vmax;
+}
+
+.taskbar .profile-container h1{
+    font-family: 'Montaga', serif;
+    color: white;
+    font-size: 2.2vmax;
 }
 
 .notes-content{

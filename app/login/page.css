@@ -89,6 +89,10 @@
     padding: 1.5vmax;
 }
 
+.inputfield input:focus{
+    outline: none;
+}
+
 .bgImg{
     width: 40%;
 }

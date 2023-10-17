@@ -53,8 +53,13 @@ const page = () => {
     <>
       <div className="main">
         <div className="dark-main">
+        <img className="logo" src="/images/home-logo.png" alt="" srcset="" />
           <div className="main-container">
-            <div className="taskbar"></div>
+            <div className="taskbar">
+              <div className="profile-container">
+                <h1>Hello, User</h1>
+              </div>
+            </div>
             <div className="notes-content">
               <div className="add-task-btn">
                 <div className="add-btn" onClick={toggleDiv}>
