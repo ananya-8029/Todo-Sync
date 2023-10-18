@@ -1,9 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./page.css";
 import Form from "@/Components/Form";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   // const [expanded, setExpanded] = useState("false");
   const toggleDiv = () => {
     expansion();
@@ -49,11 +51,18 @@ const page = () => {
     }
   }
 
+  useEffect(()=>{
+    const authToken = localStorage.getItem("authToken");
+    if(!authToken){
+      router.push("/login")
+    }
+  },[])
+
   return (
     <>
       <div className="main">
         <div className="dark-main">
-        <img className="logo" src="/images/home-logo.png" alt="" srcset="" />
+        <img className="logo" src="/images/home-logo.png" alt="" />
           <div className="main-container">
             <div className="taskbar">
               <div className="profile-container">

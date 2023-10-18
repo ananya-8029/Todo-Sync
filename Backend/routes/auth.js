@@ -57,7 +57,7 @@ router.post("/createuser", async (req, res) => {
 });
 
 //Route2: Authenticate a User using: POST: "api/auth/login". Checking for the right credentials.
-router.post("/login", checkrecentlogin, async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   //checking whether the user has logged in couple of minutes ago
   try {

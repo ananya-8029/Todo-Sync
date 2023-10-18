@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./page.css";
 import Link from "next/link";
@@ -10,25 +10,7 @@ const page = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const authToken = localStorage.getItem("authToken");
-    const expirationTime = localStorage.getItem("authTokenExpiration");
-
-    if(!authToken){
-      handleSubmit();
-    }
-    else{
-      if (new Date().getTime() > parseInt(expirationTime, 10)){
-        handleSubmit();
-      }
-      else{
-      router.push("/home");
-      }
-    }
-  }, [router]);
-
   const handleSubmit = async () => {
-
     try {
       const response = await axios.post(
         "http://localhost:5000/api/auth/login",
@@ -48,7 +30,9 @@ const page = () => {
       } else {
         const authToken = response.data.authToken;
         // Set the expiration time (e.g., 1 hour from now)
-        const expirationTime = new Date().getTime() + 3600000; // 1 hour in milliseconds
+        const expirationTime = new Date().getTime() + 300000; // 5min in milliseconds
+        // const expirationDate = new Date(expirationTime)
+        // console.log(expirationDate)
 
         localStorage.setItem("authToken", authToken);
         localStorage.setItem("authTokenExpiration", expirationTime);
@@ -60,13 +44,32 @@ const page = () => {
     } catch (error) {
       console.log(error);
     }
-
   };
 
-  const submit = (e)=>{
+  const submit = (e) => {
     e.preventDefault();
     handleSubmit();
-  }
+  };
+
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    const expirationTime = localStorage.getItem("authTokenExpiration");
+    console.log(authToken);
+    const expirationDate = new Date(expirationTime);
+    console.log(expirationTime);
+
+    if (!authToken) {
+      handleSubmit();
+    } else {
+      if (new Date().getTime() > parseInt(expirationTime, 10)) {
+        localStorage.removeItem("authTokenExpiration");
+        localStorage.removeItem("authToken");
+        handleSubmit();
+      } else {
+        router.push("/home");
+      }
+    }
+  }, [router]);
 
   return (
     <>
