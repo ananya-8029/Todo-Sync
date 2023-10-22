@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
 
     //creating and returning a json web token of the user logged in
     const signinToken = jwt.sign(data, secretkey, { expiresIn: 300 });
-    res.json({ authToken: signinToken });
+    res.json({ authToken: signinToken, user: user });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal Server errr");
@@ -93,11 +93,17 @@ router.post("/login", async (req, res) => {
 
 //Route 3: Get logged in User Details using: POST "/api/auth/getuser".Login required
 //adding a middleware to get user details:fetchuser
-router.post("/getuser", fetchuser, async (req, res) => {
+router.get("/getuser", fetchuser, async (req, res) => {
   try {
     userId = req.user.id;
     const user = await User.findById(userId).select("-password");
-    res.send(user);
+
+    if (!user) {
+      // If user is not found, send a 404 response and return
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(user);
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal Server error");

@@ -11,14 +11,14 @@ input:focus{
 form{
     height: 100%;
     width: 100%;
-    gap: 2.4vmax;
+    gap: 0.4vmax;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
-    padding: 0.5vmax 1.4vmax;
-
+    padding: 0 1.4vmax;
     font-family: 'Poppins', sans-serif;
     color: rgb(182, 182, 182);
+    align-items: center;
 }
 
 form input{
@@ -29,22 +29,21 @@ form input{
     color: rgb(18, 18, 18);
 }
 
-.heading{
-    height: 20%;
+.input-field{
+    display: flex;
+    justify-content: center;
 }
 
-.description{
-    height: 40%;
-}
 
 .btn{
-    height: 4vmax;
+    height: 2.5vmax;
     color: white;
     font-weight: 900;
-    font-size: 1.3vmax;
+    font-size: 1vmax;
     transition: all 0.5s ease;
     background-color: rgb(45, 61, 40);
     border-radius: 0.4vmax;
+    width: 12%;
 }
 
 .btn:hover{

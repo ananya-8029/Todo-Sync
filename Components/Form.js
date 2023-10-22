@@ -1,78 +1,114 @@
 "use client";
 import { useState } from "react";
+import axios from "axios";
 import "./Form.css";
-// import TaskBar from "./TaskBar.js";
+import { connect } from "react-redux";
+import { addTasks } from "../app/redux/reducer.js";
+import { useRouter } from "next/navigation";
 
-const Form = () => {
+const mapStateToProps = (state) => {
+  return {
+    tasks: state,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTask: (obj) => dispatch(addTasks(obj)),
+  };
+};
+const Form = (props) => {
   //creating variables for storing title  and description
-  const [heading, setHeading] = useState("");
+  const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tag, setTag] = useState("");
 
-  const setHandler = (e)=>{
+  const router = useRouter();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/tasks/addtask",
+        {
+          task,
+          description,
+          tag,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        alert(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setHandler = (e) => {
     //this basically will prevent reloading the page once we click on add task button
     e.preventDefault();
-    setTasks([...tasks, {heading, description}])
-    setHeading("")
-    setDescription("")
-    console.log(tasks);
-  }
+    setHeading("");
+    setDescription("");
+  };
 
-  const deleteHandler = (i)=>{
-    let duplicate = [...tasks];
-    duplicate.splice(i,1)
-    setTasks(duplicate)
-  }
-
-  let task = <h3>No task available</h3>
-  if(tasks.length > 0)
-  task = tasks.map((t,i)=>{
-    return(
-      <div key={i}>
-        <h3 className="text-lg">{t.heading}</h3>
-        <p className="text-sm">{t.description}</p>
-        <button 
-        onClick={()=>{
-          deleteHandler(i);
-        }}
-        className="bg-red-500">Delete</button>
-      </div>
-    )
-  })
-  
   return (
     <>
-    <div id="container">
-      {/* <div id="taskslist">
-        <ul>
-          {task}
-        </ul>
-      </div> */}
-      <form onSubmit={setHandler}>
-        <input 
-        type="text" 
-        className="heading" 
-        value={heading}
-        onChange={(event)=>{
-            setHeading(event.target.value)
-        }}
-        placeholder="Task" />
+      <div id="container">
+        <form action="POST" onSubmit={setHandler}>
+          <div className="input-field">
+            <label>Tasks</label>
+            <input
+              type="text"
+              className="heading"
+              value={task}
+              onChange={(event) => {
+                setTask(event.target.value);
+              }}
+              placeholder="Task"
+            />
+          </div>
 
-        <input 
-        type="text" 
-        className="description" 
-        value={description}
-        onChange={(event)=>{
-            setDescription(event.target.value)
-        }}
-        placeholder="Task Description" />
+          <div className="input-field">
+          <label>Description</label>
+          <input
+            type="text"
+            className="description"
+            value={description}
+            onChange={(event) => {
+              setDescription(event.target.value);
+            }}
+            placeholder="Task Description"
+          />
+          </div>
 
-        <button className="btn">+ ADD TASK</button>
-      </form>
-      
+          <div className="input-field"> 
+          <label>Tag</label>
+          <input
+            type="text"
+            className="tag"
+            value={tag}
+            onChange={(event) => {
+              setTag(event.target.value);
+            }}
+            placeholder="Any specific tag"
+          />
+          </div> 
+
+          <button className="btn" onClick={handleSubmit}>
+            + ADD TASK
+          </button>
+        </form>
       </div>
     </>
   );
 };
 
-export default Form;
+// connecting this component with redux store
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

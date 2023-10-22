@@ -4,8 +4,25 @@ import axios from "axios";
 import "./page.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/reducer.js';
+import { connect } from "react-redux";
 
-const page = () => {
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasks,
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (obj) => dispatch(setUser(obj)),
+  };
+};
+
+const page = (props) => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,11 +45,15 @@ const page = () => {
       if (response.data.error) {
         alert(response.data.error);
       } else {
-        const authToken = response.data.authToken;
-        // Set the expiration time (e.g., 1 hour from now)
+        const { authToken, user } = response.data;
+        // Set the expiration time
         const expirationTime = new Date().getTime() + 300000; // 5min in milliseconds
         // const expirationDate = new Date(expirationTime)
         // console.log(expirationDate)
+
+        // Store user data in Redux
+        console.log(user)
+        props.setUser(user)
 
         localStorage.setItem("authToken", authToken);
         localStorage.setItem("authTokenExpiration", expirationTime);
@@ -54,9 +75,9 @@ const page = () => {
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
     const expirationTime = localStorage.getItem("authTokenExpiration");
-    console.log(authToken);
+    // console.log(authToken);
     const expirationDate = new Date(expirationTime);
-    console.log(expirationTime);
+    // console.log(expirationTime);
 
     if (!authToken) {
       handleSubmit();
@@ -123,4 +144,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default connect(mapStateToProps, mapDispatchToProps)(page);

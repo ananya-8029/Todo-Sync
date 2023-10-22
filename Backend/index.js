@@ -12,12 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 //middleware used
-app.use(express.json())
-
+app.use(express.json());
 
 //Available routes
-app.use('/api/auth',require('./routes/auth'))
-
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/tasks", require("./routes/tasks"));
 
 // app.post("/login/forgotPassword", async (req, res) => {
 //   const { email } = req.body;
@@ -45,14 +44,14 @@ app.use('/api/auth',require('./routes/auth'))
 //         pass: 'yourpassword'
 //       }
 //     });
-    
+
 //     var mailOptions = {
 //       from: 'anaya29003@gmail.com',
 //       to: 'myfriend@yahoo.com',
 //       subject: 'Reset your password',
 //       text: link
 //     };
-    
+
 //     transporter.sendMail(mailOptions, function(error, info){
 //       if (error) {
 //         console.log(error);
@@ -80,5 +79,5 @@ app.use('/api/auth',require('./routes/auth'))
 // })
 
 var listener = app.listen(port, () => {
-  console.log("Listening on port " + listener.address().port);
+  console.log("Todosync app listening on port " + listener.address().port);
 });
