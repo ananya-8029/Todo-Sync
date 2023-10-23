@@ -47,7 +47,7 @@ const page = (props) => {
       } else {
         const { authToken, user } = response.data;
         // Set the expiration time
-        const expirationTime = new Date().getTime() + 300000; // 5min in milliseconds
+        const expirationTime = new Date().getTime() + 60 * 60 * 1000; // 1 hour in milliseconds
         // const expirationDate = new Date(expirationTime)
         // console.log(expirationDate)
 

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const mapStateToProps = (state) => {
   return {
-    tasks: state,
+    tasks: state.tasks,
   };
 };
 
@@ -26,6 +26,7 @@ const Form = (props) => {
   const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const authToken = localStorage.getItem("authToken");
     try {
       const response = await axios.post(
         "http://localhost:5000/api/tasks/addtask",
@@ -37,6 +38,7 @@ const Form = (props) => {
         {
           headers: {
             "Content-Type": "application/json",
+            "auth-token": authToken,
           },
         }
       );
@@ -44,25 +46,28 @@ const Form = (props) => {
       if (response.data.error) {
         alert(response.data.error);
       } else {
-        alert(response.data);
+        const { task, description, tag } = response.data;
+        props.addTask({
+          task: task,
+          description: description,
+          tag: tag,
+        });
       }
+
+      // Clear the form fields after successful submission
+      setTask("");
+      setDescription("");
+      setTag("");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const setHandler = (e) => {
-    //this basically will prevent reloading the page once we click on add task button
-    e.preventDefault();
-    setHeading("");
-    setDescription("");
-  };
-
   return (
     <>
       <div id="container">
-        <form action="POST" onSubmit={setHandler}>
-          <div className="input-field">
+        <form action="POST">
+          <div className="task-input input-field">
             <label>Tasks</label>
             <input
               type="text"
@@ -76,33 +81,33 @@ const Form = (props) => {
           </div>
 
           <div className="input-field">
-          <label>Description</label>
-          <input
-            type="text"
-            className="description"
-            value={description}
-            onChange={(event) => {
-              setDescription(event.target.value);
-            }}
-            placeholder="Task Description"
-          />
+            <label>Description</label>
+            <input
+              type="text"
+              className="description"
+              value={description}
+              onChange={(event) => {
+                setDescription(event.target.value);
+              }}
+              placeholder="Task Description"
+            />
           </div>
 
-          <div className="input-field"> 
-          <label>Tag</label>
-          <input
-            type="text"
-            className="tag"
-            value={tag}
-            onChange={(event) => {
-              setTag(event.target.value);
-            }}
-            placeholder="Any specific tag"
-          />
-          </div> 
+          <div className="tag-input input-field">
+            <label>Tag</label>
+            <input
+              type="text"
+              className="tag"
+              value={tag}
+              onChange={(event) => {
+                setTag(event.target.value);
+              }}
+              placeholder="Any specific tag"
+            />
+          </div>
 
           <button className="btn" onClick={handleSubmit}>
-            + ADD TASK
+            ADD TASK
           </button>
         </form>
       </div>

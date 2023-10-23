@@ -30,10 +30,26 @@ form input{
 }
 
 .input-field{
+    width: 90%;
     display: flex;
     justify-content: center;
+    gap: 3.4vmax;
+    height: 15%;
 }
 
+.task-input{
+    gap: 7.2vmax;
+}
+
+.tag-input{
+    gap: 8.3vmax;
+}
+
+label{
+    font-size: 1.3vmax;
+    color: #212121;
+    font-weight: 900;
+}
 
 .btn{
     height: 2.5vmax;

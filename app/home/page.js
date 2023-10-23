@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const page = (props) => {
+const Page = (props) => {
   const router = useRouter();
   // const [expanded, setExpanded] = useState("false");
   const toggleDiv = () => {
@@ -66,13 +66,15 @@ const page = (props) => {
     }
   };
   // needs to be uncommented....
-  useEffect(()=>{
-    const authToken = localStorage.getItem("authToken");
-    
-    if(!authToken){
-      router.push("/login")
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const authToken = localStorage.getItem("authToken");
+      // console.log(authToken)
+      if (!authToken) {
+        router.push("/login");
+      }
     }
-  },[])
+  }, []);
   console.log(props);
   return (
     <>
@@ -82,17 +84,18 @@ const page = (props) => {
           <div className="main-container">
             <div className="taskbar">
               <div className="profile-container">
-                {props.user ? (
-                  <h1>{props.user.name}</h1>
-                ) : (
-                  <h1>Welcome!</h1>
-                )}
+                {props.user ? <h1>{props.user.name}</h1> : <h1>Welcome!</h1>}
               </div>
             </div>
             <div className="notes-content">
+              <div className="header"></div>
               <ul>
                 {props.tasks.map((item) => {
-                  return <li key={item.id}>{item.task}</li>;
+                  return (
+                    <li key={item._id}>
+                      {item.task} 
+                    </li>
+                  );
                 })}
               </ul>
               <div className="add-task-btn">
@@ -113,4 +116,7 @@ const page = (props) => {
 };
 
 // connecting this component with redux store
-export default connect(mapStateToProps, mapDispatchToProps)(page);
+
+const ConnectedPage = connect(mapStateToProps, mapDispatchToProps)(Page);
+
+export default ConnectedPage;

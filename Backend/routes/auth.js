@@ -83,7 +83,7 @@ router.post("/login", async (req, res) => {
     };
 
     //creating and returning a json web token of the user logged in
-    const signinToken = jwt.sign(data, secretkey, { expiresIn: 300 });
+    const signinToken = jwt.sign(data, secretkey, { expiresIn: 3600 });
     res.json({ authToken: signinToken, user: user });
   } catch (error) {
     console.log(error.message);
@@ -102,7 +102,6 @@ router.get("/getuser", fetchuser, async (req, res) => {
       // If user is not found, send a 404 response and return
       return res.status(404).json({ error: "User not found" });
     }
-
     res.json(user);
   } catch (error) {
     console.log(error.message);

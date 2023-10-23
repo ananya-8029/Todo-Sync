@@ -5,11 +5,11 @@ const fetchuser = require("../middleware/fetchuser");
 // Connecting to Tasks schema
 const Task = require("../models/Tasks");
 
-//Route 1: Get all the notes using: GET "/api/tasks/fetchalltasks". Login required
+//Route 1: Get all the tasks using: GET "/api/tasks/fetchalltasks". Login required
 router.get("/fetchalltasks", fetchuser, async (req, res) => {
   try {
     const tasks = await Task.find({ user: req.user.id });
-    res.json(notes);
+    res.json(tasks);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Inernal Server error");

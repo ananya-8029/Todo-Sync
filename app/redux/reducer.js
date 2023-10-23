@@ -1,20 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
 
 //TasksSlice
+const initialState = [];
 const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
+    //Add tasks
     addTasks: (state, action) => {
       state.push(action.payload);
       return state;
     },
+    //Removing tasks
+    removeTasks:(state, action) => {}
   },
 });
 
-export const { addTasks } = taskSlice.actions;
+export const { addTasks, removeTasks } = taskSlice.actions;
 export const selectTasks = (state) => state.tasks;
 
 // User's slice
