@@ -6,6 +6,7 @@
 
 input:focus{
     outline: none;
+    border: 0.25vmax #3e7c1f solid;
 }
 
 form{
@@ -57,7 +58,7 @@ label{
     font-weight: 900;
     font-size: 1vmax;
     transition: all 0.5s ease;
-    background-color: rgb(45, 61, 40);
+    background-color: #3e7c1f;
     border-radius: 0.4vmax;
     width: 12%;
 }

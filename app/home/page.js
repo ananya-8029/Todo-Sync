@@ -6,7 +6,9 @@ import Form from "@/Components/Form";
 import { useRouter } from "next/navigation";
 import { connect } from "react-redux";
 import { addTasks, removeTasks } from "../redux/reducer.js";
-import { FaEraser, FaRegStar, FaUserPen } from "react-icons/fa";
+import { FaEraser, FaUserPen } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 
 const mapStateToProps = (state) => {
   return {
@@ -81,6 +83,7 @@ const Page = (props) => {
 
   const handleDelete = async (taskId) => {
     try {
+      console.log(taskId);
       const authToken = localStorage.getItem("authToken");
       const response = await axios.delete(
         `http://localhost:5000/api/tasks/deletetask/${taskId}`,
@@ -98,7 +101,7 @@ const Page = (props) => {
       console.error("Error deleting task:", error);
     }
   };
-  console.log(props);
+  // console.log(props);
   return (
     <>
       <div className="main">
@@ -116,7 +119,10 @@ const Page = (props) => {
                 {props.tasks.map((item) => {
                   return (
                     <li key={item._id}>
-                      {item.task}
+                      <div>
+                        <h1>{item.task}</h1>
+                        <p>{item.description}</p>
+                      </div>
                       <div className="icons">
                         {/* <button>
                           <FaUserPen
@@ -126,21 +132,34 @@ const Page = (props) => {
                             }}
                           />
                         </button> */}
-                        <button onClick={() => handleDelete(item._id)}>
+                        <button
+                          onClick={async () => await handleDelete(item._id)}
+                        >
                           <FaEraser
                             className="erase-icon"
                             style={{
                               color: "crimson",
-                              fontSize: "1.5vmax",
+                              fontSize: "1.2vmax",
                               cursor: "pointer",
                             }}
                           />
                         </button>
                         <button>
-                          <FaRegStar
-                            className="star-icon"
+                        <FontAwesomeIcon icon={faStar}
+                        className="star-icon"
+                        style={{
+                          fontSize: "1.2vmax",
+                          cursor: "pointer",
+                        }}
+                         />
+                        </button>
+                        <button>
+                          <FontAwesomeIcon
+                            icon={faCircleCheck}
+                            className="completed-icon"
                             style={{
-                              fontSize: "1.5vmax",
+                              color: "#3e7c1f",
+                              fontSize: "1.2vmax",
                               cursor: "pointer",
                             }}
                           />

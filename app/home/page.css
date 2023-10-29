@@ -80,15 +80,24 @@
 .notes-content ul li{
     background-color: #e4ffdde5;
     margin: 0.5vmax 0;
-    height: 10%;
+    height: 12%;
     border-radius: 0.4vmax;
     font-family: 'Poppins', sans-serif;
-    font-weight: 900;
-    color: #535353;
+    color: #696767e0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 3vmax;
+}
+
+.notes-content ul li div h1{
+    color: #3e7c1f;
+    font-size: 1.5vmax;
+    font-weight: 900;
+}
+
+.notes-content ul li div p{
+    font-size: 0.9vmax;
 }
 
 .icons{
@@ -96,12 +105,8 @@
     gap: 1vmax;
 }
 
-.erase-icon{
-    transition: 0.5s all ease;
-}
-
 .erase-icon:hover{
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 .star-icon{
@@ -110,6 +115,10 @@
 
 .star-icon:hover{
     color: rgb(244, 221, 12);
+}
+
+.completed-icon:hover{
+    transform: scale(1.15);
 }
 
 .add-task-btn{

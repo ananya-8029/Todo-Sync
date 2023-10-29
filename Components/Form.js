@@ -76,7 +76,7 @@ const Form = (props) => {
               onChange={(event) => {
                 setTask(event.target.value);
               }}
-              placeholder="Task"
+              placeholder="What's the task you want to remember?"
             />
           </div>
 
@@ -89,7 +89,7 @@ const Form = (props) => {
               onChange={(event) => {
                 setDescription(event.target.value);
               }}
-              placeholder="Task Description"
+              placeholder="What's the description of your task?"
             />
           </div>
 
