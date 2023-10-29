@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 //TasksSlice
 const initialState = [];
 const taskSlice = createSlice({
@@ -13,7 +12,9 @@ const taskSlice = createSlice({
       return state;
     },
     //Removing tasks
-    removeTasks:(state, action) => {}
+    removeTasks: (state, action) => {
+      return state.filter((item) => item._id !== action.payload);
+    },
   },
 });
 

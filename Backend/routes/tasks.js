@@ -34,4 +34,27 @@ router.post("/addtask", fetchuser, async (req, res) => {
   }
 });
 
+// //Route 3: Deleting an existing task using: DELETE "api/tasks/deletetask". Login required
+router.delete("/deletetask/:id", fetchuser, async (req, res) => {
+
+  try {
+    //find the note to be deleted
+    let task = await Task.findById(req.params.id);
+    if (!task) {
+      return res.status(401).send("Not Allowed");
+    }
+
+    //allow deletion only if user owns it
+    if (task.user.toString() !== req.user.id) {
+      return res.status(401).send("Not Allowed");
+    }
+
+    task = await Task.findByIdAndDelete(req.params.id);
+    res.json({ Success: "Task has beed deleted" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server error");
+  }
+});
+
 module.exports = router;

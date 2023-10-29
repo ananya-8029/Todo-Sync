@@ -1,10 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./page.css";
+import axios from "axios";
 import Form from "@/Components/Form";
 import { useRouter } from "next/navigation";
 import { connect } from "react-redux";
-import { addTasks } from "../redux/reducer.js";
+import { addTasks, removeTasks } from "../redux/reducer.js";
+import { FaEraser, FaRegStar, FaUserPen } from "react-icons/fa";
 
 const mapStateToProps = (state) => {
   return {
@@ -16,6 +18,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addTask: (obj) => dispatch(addTasks(obj)),
+    removeTask: (id) => dispatch(removeTasks(id)),
   };
 };
 
@@ -75,6 +78,26 @@ const Page = (props) => {
       }
     }
   }, []);
+
+  const handleDelete = async (taskId) => {
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const response = await axios.delete(
+        `http://localhost:5000/api/tasks/deletetask/${taskId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": authToken,
+          },
+        }
+      );
+
+      // Dispatch an action to remove the task from the Redux store
+      props.removeTask(taskId);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
   console.log(props);
   return (
     <>
@@ -84,7 +107,7 @@ const Page = (props) => {
           <div className="main-container">
             <div className="taskbar">
               <div className="profile-container">
-                {props.user ? <h1>{props.user.name}</h1> : <h1>Welcome!</h1>}
+                {props.user ? <h1>{props.user.name}</h1> : <h1></h1>}
               </div>
             </div>
             <div className="notes-content">
@@ -93,7 +116,36 @@ const Page = (props) => {
                 {props.tasks.map((item) => {
                   return (
                     <li key={item._id}>
-                      {item.task} 
+                      {item.task}
+                      <div className="icons">
+                        {/* <button>
+                          <FaUserPen
+                            style={{
+                              fontSize: "1.5vmax",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </button> */}
+                        <button onClick={() => handleDelete(item._id)}>
+                          <FaEraser
+                            className="erase-icon"
+                            style={{
+                              color: "crimson",
+                              fontSize: "1.5vmax",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </button>
+                        <button>
+                          <FaRegStar
+                            className="star-icon"
+                            style={{
+                              fontSize: "1.5vmax",
+                              cursor: "pointer",
+                            }}
+                          />
+                        </button>
+                      </div>
                     </li>
                   );
                 })}

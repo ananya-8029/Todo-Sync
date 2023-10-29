@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const mongoURI = "mongodb://localhost:27017/todosync";
+require("dotenv").config({ path: ".env.local" });
+const mongoURI = process.env.MONGO_URI;
 
 const connectToMongo = () => {
   mongoose.connect(mongoURI);
