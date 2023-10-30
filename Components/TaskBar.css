@@ -1,11 +1,21 @@
-/* Task Bar css */
-
-/* #sidebar{
-    width: 40%;
-    padding: 20px;
+.profile {
+  height: 30%;
+  width: 70%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-bottom: 0.2vmax solid rgba(171, 170, 170, 0.947);
 }
 
-h1{
-    color: white;
-    font-size: 30px;
-} */
+.profile h1 {
+  text-align: center;
+  font-family: "Montaga", serif;
+  color: white;
+  font-size: 2.2vmax;
+  margin: 0.5vmax;
+}
+
+.status-of-tasks {
+  height: 70%;
+  width: 100%;
+}

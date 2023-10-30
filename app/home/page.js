@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import "./page.css";
 import axios from "axios";
 import Form from "@/Components/Form";
+import TaskBar from "@/Components/TaskBar";
 import { useRouter } from "next/navigation";
 import { connect } from "react-redux";
 import { addTasks, removeTasks } from "../redux/reducer.js";
-import { FaEraser, FaUserPen } from "react-icons/fa";
+import { FaEraser } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faStar } from "@fortawesome/free-solid-svg-icons";
 
@@ -109,9 +110,10 @@ const Page = (props) => {
           <img className="logo" src="/images/home-logo.png" alt="" />
           <div className="main-container">
             <div className="taskbar">
-              <div className="profile-container">
+              <TaskBar/>
+              {/* <div className="profile-container">
                 {props.user ? <h1>{props.user.name}</h1> : <h1></h1>}
-              </div>
+              </div> */}
             </div>
             <div className="notes-content">
               <div className="header"></div>
@@ -124,14 +126,6 @@ const Page = (props) => {
                         <p>{item.description}</p>
                       </div>
                       <div className="icons">
-                        {/* <button>
-                          <FaUserPen
-                            style={{
-                              fontSize: "1.5vmax",
-                              cursor: "pointer",
-                            }}
-                          />
-                        </button> */}
                         <button
                           onClick={async () => await handleDelete(item._id)}
                         >
@@ -145,13 +139,14 @@ const Page = (props) => {
                           />
                         </button>
                         <button>
-                        <FontAwesomeIcon icon={faStar}
-                        className="star-icon"
-                        style={{
-                          fontSize: "1.2vmax",
-                          cursor: "pointer",
-                        }}
-                         />
+                          <FontAwesomeIcon
+                            icon={faStar}
+                            className="star-icon"
+                            style={{
+                              fontSize: "1.2vmax",
+                              cursor: "pointer",
+                            }}
+                          />
                         </button>
                         <button>
                           <FontAwesomeIcon
