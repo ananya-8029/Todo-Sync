@@ -5,6 +5,7 @@ import store from './redux/store';
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head suppressHydrationWarning/>
       <body>
       <Provider store={store}>
         {children}

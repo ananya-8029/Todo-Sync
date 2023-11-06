@@ -127,7 +127,7 @@ const Page = (props) => {
                       </div>
                       <div className="icons">
                         <button
-                          onClick={async () => await handleDelete(item._id)}
+                          onClick={ () => handleDelete(item._id)}
                         >
                           <FaEraser
                             className="erase-icon"
