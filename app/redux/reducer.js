@@ -42,6 +42,25 @@ const userSlice = createSlice({
 export const { setUser, clearUser } = userSlice.actions;
 export const selectUser = (state) => state.user.user;
 
+// Completed Tasks SLice
+const completedTasks = []
+
+const completedtaskSlice = createSlice({
+  name: "completed",
+  initialState: completedTasks,
+  reducers: {
+    addCompletedTask: (state, action) => {
+      state.push(action.payload);
+    },
+    // removeCompletedTask: (state, action) => {
+    //   return state.filter((task) => task._id !== action.payload);
+    // },
+  }
+})
+
+export const { addCompletedTask } = completedtaskSlice.actions;
+
 // Export both reducers
 export const tasksReducer = taskSlice.reducer;
 export const userReducer = userSlice.reducer;
+export const completedtaskReducer = completedtaskSlice.reducer;

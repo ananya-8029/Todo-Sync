@@ -34,9 +34,8 @@ router.post("/addtask", fetchuser, async (req, res) => {
   }
 });
 
-// //Route 3: Deleting an existing task using: DELETE "api/tasks/deletetask". Login required
+// Route 3: Deleting an existing task using: DELETE "api/tasks/deletetask/id". Login required
 router.delete("/deletetask/:id", fetchuser, async (req, res) => {
-
   try {
     //find the note to be deleted
     let task = await Task.findById(req.params.id);
@@ -54,6 +53,33 @@ router.delete("/deletetask/:id", fetchuser, async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server error");
+  }
+});
+
+// Route 4: Making an existing task as completed using: POST "api/tasks/taskcomplete". Login required
+
+router.post("/taskcomplete/:id", fetchuser, async (req, res) => {
+  try {
+    //find the task to be marked as completed
+    let taskId = await Task.findById(req.params.id);
+    if (!taskId) {
+      return res.status(401).send("Wrong Id");
+    }
+
+    //allow deletion only if user owns it
+    if (taskId.user.toString() !== req.user.id) {
+      return res.status(401).send("Not Allowed");
+    }
+
+    const updatedTask = await Task.findByIdAndUpdate(
+      taskId,
+      { completed: true },
+      { new: true } // Return the updated task
+    );
+    res.json(updatedTask);
+  } catch (error) {
+    console.error("Error updating task in MongoDB:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

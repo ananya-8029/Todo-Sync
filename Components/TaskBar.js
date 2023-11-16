@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
 };
 
 const TaskBar = (props) => {
+
   return (
     <>
       <div className="profile">

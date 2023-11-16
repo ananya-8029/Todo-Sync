@@ -6,7 +6,7 @@ import Form from "@/Components/Form";
 import TaskBar from "@/Components/TaskBar";
 import { useRouter } from "next/navigation";
 import { connect } from "react-redux";
-import { addTasks, removeTasks } from "../redux/reducer.js";
+import { addCompletedTask, addTasks, removeTasks } from "../redux/reducer.js";
 import { FaEraser } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck, faStar } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,7 @@ const mapStateToProps = (state) => {
   return {
     tasks: state.tasks,
     user: state.user,
+    completed: state.completed
   };
 };
 
@@ -22,6 +23,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTask: (obj) => dispatch(addTasks(obj)),
     removeTask: (id) => dispatch(removeTasks(id)),
+    addCompletedTask: (id) => dispatch(addCompletedTask(id))
   };
 };
 
@@ -84,7 +86,7 @@ const Page = (props) => {
 
   const handleDelete = async (taskId) => {
     try {
-      console.log(taskId);
+      // console.log(taskId);
       const authToken = localStorage.getItem("authToken");
       const response = await axios.delete(
         `http://localhost:5000/api/tasks/deletetask/${taskId}`,
@@ -102,6 +104,11 @@ const Page = (props) => {
       console.error("Error deleting task:", error);
     }
   };
+
+  const handleCompleteTask = async (taskId) => {
+    try {
+    } catch (error) {}
+  };
   // console.log(props);
   return (
     <>
@@ -110,10 +117,7 @@ const Page = (props) => {
           <img className="logo" src="/images/home-logo.png" alt="" />
           <div className="main-container">
             <div className="taskbar">
-              <TaskBar/>
-              {/* <div className="profile-container">
-                {props.user ? <h1>{props.user.name}</h1> : <h1></h1>}
-              </div> */}
+              <TaskBar />
             </div>
             <div className="notes-content">
               <div className="header"></div>
@@ -126,9 +130,7 @@ const Page = (props) => {
                         <p>{item.description}</p>
                       </div>
                       <div className="icons">
-                        <button
-                          onClick={ () => handleDelete(item._id)}
-                        >
+                        <button onClick={() => handleDelete(item._id)}>
                           <FaEraser
                             className="erase-icon"
                             style={{
@@ -148,7 +150,7 @@ const Page = (props) => {
                             }}
                           />
                         </button>
-                        <button>
+                        <button onClick={() => handleCompleteTask(item._id)}>
                           <FontAwesomeIcon
                             icon={faCircleCheck}
                             className="completed-icon"
