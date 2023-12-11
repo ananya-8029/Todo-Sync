@@ -1,4 +1,4 @@
-# Todo List Application
+# Todo-Sync
 
 This is a simple Todo List application built using React for the frontend, Redux for state management, Node.js Express for the backend, and MongoDB as the database. User authentication is implemented using JWT (JSON Web Tokens).
 
@@ -11,10 +11,10 @@ This is a simple Todo List application built using React for the frontend, Redux
 
 ## Features
 
-- User authentication with JWT
 - Create, read, update, and delete todos
 - Redux for state management
 - MongoDB for data storage
+- User authentication with JWT
 
 ## Prerequisites
 
