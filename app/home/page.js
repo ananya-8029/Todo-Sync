@@ -64,7 +64,7 @@ const Page = (props) => {
     document.body.removeEventListener("click", outsideClickHandler);
   };
 
-  const outsideClickHandler = () => {
+  const outsideClickHandler = (event) => {
     const addTaskbtn = document.querySelector(".add-task-btn");
     const form = document.querySelector(".form");
 
