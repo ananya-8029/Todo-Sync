@@ -5,7 +5,7 @@ import "./page.css";
 import Link from 'next/link'
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,4 +88,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
