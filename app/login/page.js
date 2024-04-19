@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const page = (props) => {
+const Page = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -144,4 +144,4 @@ const page = (props) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(page);
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
